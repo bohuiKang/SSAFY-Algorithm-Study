@@ -1,5 +1,6 @@
 # 각 칸에서 - or + 선택 후 다음 depth로 재귀
 # 기저조건 : 마지막 칸까지 가면 타겟 넘버와 비교 후 return
+
 def solution(numbers, target):
     
     def recur(total, idx):
