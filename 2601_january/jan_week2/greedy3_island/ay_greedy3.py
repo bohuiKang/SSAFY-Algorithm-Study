@@ -19,7 +19,7 @@
 
 def solution(n, costs):
     answer = 0
-    check_num = [0]*n
+    parent = [0]*n
     # cost 기준으로 정렬
     costs.sort(key= lambda x: x[2])
     parents = [0]*n
@@ -27,21 +27,25 @@ def solution(n, costs):
     for i in range(n):
         parents[i] = i
     
-    # cycle인지 체크하는 함수
-    def is_cycle(i):
-        # 부모가 자기 자신이면 종료
-        
-        while parents[i] != i:
-            
-            pass
+    # 부모 노드 넣어주기 -> 이거 lambda로 쓰면 줄여서 쓸 수 있을듯
+    for i in range(n):
+        parent[i] = i
     
-    # 비용 확인하면서 순환하기
-    for i, j, cost in costs:
-        pre = parents[i]
-        parents[i] = j
+    # find 
+    def find(x):
+        if parent[x] != x:
+            parent[x] = find(parent[x])
+
+        return parent[x]
     
-    
-        
+    # union
+    def union(a, b):
+        a = find(a)
+        b = find(b)
+        if a < b:
+            parent[b] = a
+        else:
+            parent[a] = b
     
         
         
