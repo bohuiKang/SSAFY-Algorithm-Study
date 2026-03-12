@@ -5,7 +5,7 @@ def solution(n, q, ans):
     q_sets = [set(row) for row in q]
     
     ban = set()
-    # ans =5, 0 먼저 확인
+    # ans = 5, 0 먼저 확인
     for i, a in enumerate(ans):
         if a == 5:
             return 1
