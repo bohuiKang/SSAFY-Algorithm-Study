@@ -1,3 +1,4 @@
+# 수정 할점 -> left_last ==0 일때 left_last = w로 바꿔줄것 이러면 코드 길이가 더 짧아 질것임
 def solution(n, w, num):
     answer = 0
     # 마지막 층 몫과 나머지 구하기
