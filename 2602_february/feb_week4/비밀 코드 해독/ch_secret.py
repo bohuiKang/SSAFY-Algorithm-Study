@@ -16,3 +16,5 @@ def solution(n, q, ans):
         else:
             answer += 1
     return answer
+
+# test
