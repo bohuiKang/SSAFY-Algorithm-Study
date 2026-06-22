@@ -4,13 +4,14 @@ def solution(cap, n, deliveries, pickups):
     pickups = [0] + pickups
 
     will_delivery_total = sum(deliveries) # 배달 해야하는 총 개수
+    will_pickup_total = sum(pickups)
 
     # 창고에서 트럭에 짐 싵기
     def start_truck(total):
         if total > cap:
-            return total - cap
+            return cap, total - cap
         else:
-            return total
+            return total, 0
     # deliver max 값 도 확인해 볼것 -> 갱신하는 내용 추가
     # deliver 최장 거리 부터 빼는 함수
     def after_deliver(last_house, deliver_truck): # 들러야 하는 가장 먼집, 트럭의 짐
@@ -22,31 +23,60 @@ def solution(cap, n, deliveries, pickups):
                 if not max_i:
                     max_i = i
 
-                if deliver_truck >= deliveries[i]:
+                if deliver_truck >= deliveries[i]: # 배달할 짐보다 트럭에 더 많거나 같은 만큼 짐이 있을 때
                     deliver_truck -= deliveries[i]
                     deliveries[i] = 0
-                    max_house = i
-                    if deliver_truck == 0:
+                    max_house = i - 1 
+                    if deliver_truck == 0: # trunk에 짐이 없으면 
                         return max_i, max_house # 최장 거리, 확인 하면 되는 delivery
 
-                else:
+                else: # 배달할 짐보다 트럭에 더 적게 짐이 있을 때
                     deliveries[i] -= deliver_truck
                     deliver_truck = 0
-                    return max_i
+                    max_house = i
+                    return max_i, max_house
 
 
-        return max_i
+        return max_i, max_house
 
-    def after_pickup(last_house, pickup_truck):
+    def after_pickup(last_house, pickup_truck): # 들러야 하는 가장 먼집, 트럭에 실을 수 있는 짐의 양
         max_i = 0
+        max_house = last_house
+        if last_house <= 0:
+            return 0, 0
         for i in range(last_house,0,-1):
             if pickups[i]:
-                # todo :
+                if not max_i:
+                    max_i = i
+                
+                if pickup_truck >= pickups[i]: # 실을 짐이 수용가능 공간 보다 작을 때
+                    pickup_truck -= pickups[i]
+                    pickups[i] = 0
+                    max_house = i - 1
+                    if pickup_truck == 0:
+                        return max_i, max_house 
+                
+                else:
+                    pickups[i] -= pickup_truck
+                    pickup_truck = 0
+                    max_house = i
+                    return max_i, max_house
+                
+        return max_i, max_house
 
+    truck, now_total = start_truck(will_delivery_total)
+    last_house = last_house_del = last_house_pic = n
+    total_max_i = 0
+    while now_total:
+        max_i_del, last_house_del = after_deliver(last_house_del, truck)
+        max_i_pic, last_house_pic = after_pickup(last_house_pic, cap)
+        total_max_i += max(max_i_del, max_i_pic)
+    
+    while last_house_pic > 0:
+        max_i_pic, last_house_pic = after_pickup(last_house_pic, cap)
+        total_max_i += max_i_pic
 
-
-
-
+    answer = total_max_i * 2
 
 
     return answer
