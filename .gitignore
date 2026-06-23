@@ -88,3 +88,6 @@ out/
 .DS_Store
 # Windows
 Thumbs.db
+
+# .gitignore 파일
+*.idea
