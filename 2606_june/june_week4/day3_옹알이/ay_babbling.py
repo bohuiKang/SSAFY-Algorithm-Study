@@ -8,7 +8,7 @@ def solution(babbling):
 
             word = word.replace(can, " ") # 있으면 발음 가능한 문자열 띄워쓰기로 대체
 
-        if not word.strip(): # 공백 제거하면 false기 때문에 빈값이면 해당 문자열로 표기 가능이라서
+        if not word.strip(): # 공백 제거하고 빈 값이면 false기 때문에 빈값이면 해당 문자열로 표기 가능이라서
             answer += 1
 
     return answer

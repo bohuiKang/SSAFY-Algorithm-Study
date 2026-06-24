@@ -1,3 +1,5 @@
+# 2진수 더하기를 그대로 표현한 풀이
+
 def solution(bin1, bin2):
     answer = ''
     len_1 = len(bin1)
@@ -24,11 +26,11 @@ def solution(bin1, bin2):
     
     result = digit
 
-    if len(digit) != 1 and digit[0] == 0:
+    if len(digit) != 1 and digit[0] == 0: # 맨 앞자리가 0인 경우 빼줘야 하기 때문에
         result = digit[1:]
     
     
-    for num in result:
+    for num in result: # 답을 return 하기위해 answer에 값을 더해준것일 뿐임
         answer += str(num)
 
     return answer
